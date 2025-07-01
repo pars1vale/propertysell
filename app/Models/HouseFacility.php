@@ -18,8 +18,8 @@ class HouseFacility extends Model
     {
         return $this->belongsTo(House::class, 'house_id');
     }
-    public function facility()
+    public function facilities()
     {
-        return $this->belongsTo(Facility::class, 'facility_id');
+        return $this->belongsTo(facilities::class, 'facility_id');
     }
 }
