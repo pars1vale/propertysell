@@ -23,7 +23,34 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('name')
+                    ->required()
+                    ->maxLength(255),
+
+                Forms\Components\TextInput::make('phone')
+                    ->maxLength(12)
+                    ->required(),
+
+                Forms\Components\TextInput::make('email')
+                    ->required()
+                    ->email()
+                    ->maxLength(255),
+
+                Forms\Components\TextInput::make('password')
+                    ->helperText('Minimum 8 characters')
+                    ->password()
+                    ->required()
+                    ->minLength(8)
+                    ->maxLength(255),
+
+                Forms\Components\Select::make('roles')
+                    ->label('Role')
+                    ->relationship('roles', 'name')
+                    ->required(),
+
+                Forms\Components\FileUpload::make('photo')
+                    ->required()
+                    ->image(),
             ]);
     }
 
@@ -31,7 +58,11 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                //
+
+                Tables\Columns\ImageColumn::make('photo'),
+                Tables\Columns\TextColumn::make('name')
+                    ->label('Name')
+                    ->searchable(),
             ])
             ->filters([
                 // Tables\Filters\TrashedFilter::make(),

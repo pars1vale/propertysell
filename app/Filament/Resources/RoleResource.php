@@ -23,7 +23,8 @@ class RoleResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('name')
+                    ->required(),
             ]);
     }
 
@@ -31,7 +32,9 @@ class RoleResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('name')
+                    ->label('Role Name')
+                    ->searchable(),
             ])
             ->filters([
                 // Tables\Filters\TrashedFilter::make(),
