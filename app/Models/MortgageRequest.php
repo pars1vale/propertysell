@@ -20,7 +20,7 @@ class MortgageRequest extends Model
         'monthly_amount',
         'dp_percentage',
         'status',
-        'documents',
+        'document',
         'house_price',
         'loan_interest_total_amount',
     ];
