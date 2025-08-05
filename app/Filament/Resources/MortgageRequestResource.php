@@ -3,7 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\MortgageRequestResource\Pages;
-use App\Filament\Resources\MortgageRequestResource\RelationManagers;
+use App\Filament\Resources\MortgageRequestResource\RelationManagers\InstallmentsRelationManager;
 use App\Models\MortgageRequest;
 use App\Models\User;
 use Filament\Forms;
@@ -19,7 +19,9 @@ class MortgageRequestResource extends Resource
 {
     protected static ?string $model = MortgageRequest::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-check';
+
+    protected static ?string $navigationGroup = 'Transactions';
 
     public static function form(Form $form): Form
     {
@@ -219,6 +221,9 @@ class MortgageRequestResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\ImageColumn::make('house.thumbnail'),
+                Tables\Columns\TextColumn::make('customer.name')
+                    ->label('Customer Name')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('house.name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('house.name'),
@@ -229,6 +234,11 @@ class MortgageRequestResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('download')
+                    ->label('Download')
+                    ->icon('heroicon-o-arrow-down-tray')
+                    ->url(fn(MortgageRequest $record) => asset('storage/' . $record->document))
+                    ->openUrlInNewTab(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -242,7 +252,7 @@ class MortgageRequestResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            InstallmentsRelationManager::class,
         ];
     }
 

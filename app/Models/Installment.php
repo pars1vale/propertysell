@@ -16,9 +16,9 @@ class Installment extends Model
         'sub_total_amount',
         'insurance_amount',
         'proof',
-        'id_paid',
+        'is_paid',
         'payment_type',
-        'remaining_loan_mount',
+        'remaining_loan_amount',
     ];
 
     public function mortageRequest()
