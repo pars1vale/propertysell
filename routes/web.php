@@ -7,12 +7,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [FrontController::class, 'index'])->name('front.index');
 Route::get('/category/{category.slug}', [FrontController::class, 'category'])->name('front.category');
+
 Route::get('/details/{home.slug}', [FrontController::class, 'details'])->name('front.details');
 Route::get('/search', [FrontController::class, 'search'])->name('front.search');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::match(['get', 'post'], 'mortgage/interst/payment/midtrans/notification', [DashboardController::class, 'paymentNotificationMidtrans'])
+    ->name('front.payment_midtrans_notification');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
