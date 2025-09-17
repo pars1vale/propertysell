@@ -6,6 +6,7 @@ use App\Filament\Resources\HouseResource\Pages\CreateHouse;
 use App\Models\Category;
 use App\Models\House;
 use App\Models\Interest;
+use App\Services\HouseService;
 use App\Services\MortgageService;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class FrontController extends Controller
     protected $houseService;
     protected $mortgageService;
 
-    public function __construct(HouseServide $houseService, MortgageService $mortgageService)
+    public function __construct(HouseService $houseService, MortgageService $mortgageService)
     {
         $this->houseService = $houseService;
         $this->mortgageService = $mortgageService;
